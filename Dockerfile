@@ -2,7 +2,7 @@ FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
-COPY target/blog-1.0.0.jar app.jar
+COPY target/blog-*.jar app.jar
 
 EXPOSE 8080
 
