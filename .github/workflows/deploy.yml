@@ -62,22 +62,3 @@ jobs:
       run: |
         echo "Image URI: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
         echo "Latest URI: $ECR_REGISTRY/$ECR_REPOSITORY:latest"
-        
-    - name: Deploy to EKS
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ github.sha }}
-      run: |
-        # EKS 클러스터 연결
-        aws eks update-kubeconfig --region $AWS_REGION --name eks-dev
-        
-        # 이미지 태그 업데이트
-        sed -i "s|320644768930.dkr.ecr.ap-northeast-2.amazonaws.com/charon-test:latest|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" k8s/deployment.yaml
-        
-        # Kubernetes 배포
-        kubectl apply -f k8s/
-        
-        # 배포 상태 확인
-        kubectl rollout status deployment/charon-blog
-        kubectl get pods -l app=charon-blog
-        kubectl get service charon-blog-service
