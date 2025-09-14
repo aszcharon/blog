@@ -13,7 +13,7 @@
 
     <groupId>com.charon</groupId>
     <artifactId>blog</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>blog</name>
     <description>Simple Blog Application - CI/CD Test v2</description>
 
